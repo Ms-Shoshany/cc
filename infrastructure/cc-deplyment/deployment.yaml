@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cc
+  labels:
+    app: cc
+    service: cc
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cc
+      service: cc
+  template:
+    metadata:
+      labels:
+        app: cc
+        service: cc
+    spec:
+      volumes:
+      - name: cc-volume
+        persistentVolumeClaim:
+          claimName: cc
+      containers:
+      - name: cc-container
+        image: hhana982/cc:1.<version>
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - mountPath: "/"
+          name: cc-volume
+        env: 
